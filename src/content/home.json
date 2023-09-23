@@ -15,13 +15,6 @@
   ],
   "news": [
     {
-      "text": "Une nouvelle actualité, 30-03-2022",
-      "image": {
-        "src": "/assets/jardins.jpeg",
-        "alt": "des enfants"
-      }
-    },
-    {
       "text": "Expostion 123ABC, le 12-03-45",
       "image": {
         "src": "/assets/affiche3.jpeg",
