@@ -1,0 +1,86 @@
+---
+interface Props {
+	label: string
+	items: {
+		label: string
+		url: string
+	}[]
+}
+const { label, items } = Astro.props
+---
+
+<div class="group relative" data-dropdown>
+	<button aria-expanded="false" class="group/button peer flex items-center gap-1 p-1">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="2"
+			stroke="currentColor"
+			width="1em"
+			height="1em"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="origin-center transition-transform duration-300 group-hover:rotate-90 group-aria-[expanded=true]/button:rotate-90"
+				d="M12 4.5v15"></path>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15"></path>
+		</svg>
+		{label}
+	</button>
+	<ul
+		aria-hidden="true"
+		class="hover:clip-path-0 peer-hover:clip-path-0 clip-path-2 aria-[hidden=false]:clip-path-0 absolute z-50 w-full border border-black bg-gray-50 transition-[clip-path]"
+	>
+		{
+			items.map(({ url, label }) => (
+				<li>
+					<a
+						href={url}
+						download=""
+						tabindex="-1"
+						class="block px-3 py-1 hover:bg-primary-2 hover:text-white focus-visible:bg-primary-2 focus-visible:text-white"
+					>
+						{label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const $dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]')
+		$dropdowns.forEach(($dropdown) => {
+			const $button = $dropdown.querySelector('button')
+			const $list = $dropdown.querySelector('ul')
+			const $items = $dropdown.querySelectorAll('a')
+			let timerId: ReturnType<typeof setTimeout> | null = null
+			const open = () => {
+				$button?.setAttribute('aria-expanded', 'true')
+				$list?.setAttribute('aria-hidden', 'false')
+				$items.forEach(($el) => $el.removeAttribute('tabindex'))
+				timerId = null
+			}
+			const close = () => {
+				if (timerId !== null) return
+				timerId = setTimeout(() => {
+					$button?.setAttribute('aria-expanded', 'false')
+					$list?.setAttribute('aria-hidden', 'true')
+					$items.forEach(($el) => $el.setAttribute('tabindex', '-1'))
+					timerId = null
+				}, 300)
+			}
+			$button?.addEventListener('click', open)
+			$dropdown?.addEventListener('mouseenter', open)
+			$button?.addEventListener('focusin', open)
+			$dropdown?.addEventListener('mouseleave', close)
+			$dropdown.addEventListener('focusout', (e) => {
+				const $target = e.relatedTarget as HTMLElement
+				if (!$dropdown.contains($target)) close()
+			})
+		})
+	})
+</script>

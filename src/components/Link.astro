@@ -1,0 +1,15 @@
+---
+interface Props {
+	url: string
+	content: string
+}
+const { url, content } = Astro.props
+---
+
+<a
+	href={url}
+	class="hover:before:clip-path-0 focus-visible:before:clip-path-0 before:clip-path-1 relative cursor-pointer px-2 py-1 before:absolute before:inset-0 before:grid before:place-content-center before:bg-primary-2 before:text-white before:transition-[clip-path] before:content-[attr(data-content)]"
+	data-content={content}
+>
+	{content}
+</a>

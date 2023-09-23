@@ -1,0 +1,60 @@
+---
+import Dropdown from '@components/Dropdown.astro'
+import Glitch from '@components/Glitch.astro'
+import Link from '@components/Link.astro'
+import NewsList from '@components/NewsList/index.astro'
+import Layout from '@layouts/Layout.astro'
+import { body, contact, title, files, news } from '../content/home.json'
+---
+
+<Layout title="Accueil">
+	<div class="grid min-h-screen place-content-center py-6">
+		<main
+			class="gap[1px] mx-auto flex w-11/12 min-w-[20rem] max-w-screen-xl flex-col justify-center overflow-hidden text-fl-0 font-light"
+		>
+			<!-- ROW 1 -->
+			<div class="flex flex-wrap gap-[1px] bg-gray-900">
+				<div class="grid grow place-content-center bg-gray-50 px-m py-6">
+					<h1 class="text-center font-display text-fl-5 leading-tight text-primary-1">
+						<Glitch>{title}</Glitch>
+					</h1>
+				</div>
+				<div class="grid grow place-content-center bg-gray-50 px-m py-6">
+					<Dropdown
+						label="Téléchargements"
+						items={files.map((f) => ({ label: f.title, url: f.file }))}
+					/>
+				</div>
+			</div>
+			<!-- ROW 2 -->
+			<div class="flex flex-wrap gap-[1px] border-t-[1px] border-gray-900 bg-gray-900">
+				<div class="grid grow place-content-center bg-gray-50 px-m py-6">
+					<Link url="/projets" content="Projets" />
+				</div>
+				<div class="-8 grid grow place-content-center bg-gray-50 px-m py-6">
+					<p class="max-w-prose">
+						{body}
+					</p>
+				</div>
+			</div>
+			<!-- ROW 3 -->
+			<div class="border-t-[1px] border-gray-900 py-6">
+				<NewsList
+					items={news.map((n) => ({
+						label: n.text,
+						image: { src: n.image.src, alt: n.image.alt ?? '' }
+					}))}
+				/>
+			</div>
+			<!-- ROW 4 -->
+			<div class="flex flex-wrap gap-[1px] border-t-[1px] border-gray-900 bg-gray-900">
+				<div class="grid grow place-content-center bg-gray-50 px-m py-6">
+					<Link url="/infos" content="Infos" />
+				</div>
+				<div class="grid grow place-content-center bg-gray-50 px-m py-6">
+					<Link url={`mailto:${contact}`} content="Contact" />
+				</div>
+			</div>
+		</main>
+	</div>
+</Layout>

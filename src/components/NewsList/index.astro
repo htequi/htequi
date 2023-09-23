@@ -1,0 +1,25 @@
+---
+import 'viewerjs/dist/viewer.css'
+import Item from './_NewsItem.astro'
+interface Props {
+	items: {
+		label: string
+		image: {
+			src: string
+			alt: string
+		}
+	}[]
+}
+const { items: _items } = Astro.props
+const size = _items.length
+const items = [..._items, ..._items]
+---
+
+<div id="news">
+	<ul
+		class="hover:pause flex w-fit animate-[marquee_linear_infinite] whitespace-nowrap"
+		style=`animation-duration: ${size * 9}s;`
+	>
+		{items.map(({ label, image }, i) => <Item {label} clone={i >= size} {image} />)}
+	</ul>
+</div>

@@ -1,0 +1,33 @@
+---
+import Header from '@components/Header.astro'
+import Toc from '@components/Toc.svelte'
+import * as content from '../content/infos.md'
+import Layout from '../layouts/Layout.astro'
+
+const { Content, frontmatter, getHeadings } = content
+const { title } = frontmatter as { title: string }
+const headings = getHeadings()
+---
+
+<Layout title="Infos">
+	<Header url="/" />
+	<main class="mx-auto max-w-prose px-s pb-10 pt-5 md:max-w-screen-lg md:px-xl">
+		<h1 class="text-fl-4 font-bold md:text-fl-5">{title}</h1>
+		<div class:list={['mt-6  md:gap-x-8', headings.length && 'md:grid md:grid-cols-3']}>
+			{
+				headings.length > 0 && (
+					<nav aria-label="sur cette page" class="col-start-3 hidden md:block">
+						<div class="pb-26 sticky top-8 max-h-screen overflow-auto">
+							<Toc {headings} client:media="(min-width: 768px)" />
+						</div>
+					</nav>
+				)
+			}
+			<article
+				class="prose col-span-2 row-start-1 mx-auto pb-10 xl:prose-lg prose-h2:mb-6 prose-a:text-primary-2 prose-a:transition-colors hover:prose-a:text-primary-1"
+			>
+				<Content />
+			</article>
+		</div>
+	</main>
+</Layout>

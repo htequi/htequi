@@ -1,0 +1,40 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import ScrollAnims from '@components/ScrollAnims.astro'
+import '../base.css'
+interface Props {
+	title: string
+	smoothScroll?: boolean
+}
+const { title, smoothScroll = true } = Astro.props
+---
+
+<html lang="fr" class:list={['scroll-pt-12', smoothScroll && 'scroll-smooth']}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="Porfolio de Hadrien Tequi" />
+		<title>Hadrien Tequi | {title}</title>
+		<slot name="head" />
+		<ViewTransitions />
+	</head>
+	<body class="bg-gray-50">
+		<ScrollAnims>
+			<slot />
+		</ScrollAnims>
+		<style is:inline>
+			@font-face {
+				font-family: 'Avara_Bold';
+				src: url('/fonts/Bold/Avara-Bold.eot');
+				src:
+					url('/fonts/Bold/Avara-Bold.woff') format('woff'),
+					url('/fonts/Bold/Avara-Bold.woff2') format('woff2'),
+					url('/fonts/Bold/Avara-Bold.ttf') format('truetype'),
+					url('/fonts/Bold/Avara-Bold.svg#svgFontName') format('svg');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
+		</style>
+	</body>
+</html>

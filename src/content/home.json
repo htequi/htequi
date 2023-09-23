@@ -1,0 +1,38 @@
+{
+	"title": "Hadrien Tequi ",
+	"contact": "truc@hotmail.fr",
+	"body": "À travers une pratique pluridisciplinaire, mon travail explore la dichotomie entre notre fascination pour ce qui échappe à notre contrôle et notre obsession de maîtrise. Chaque projet se construit autour de cette tension. Plutôt que d’en faire un sujet, il est question d’en faire le moteur du travail. L’utilisation d’outils tels que des programmes de reconnaissance de formes, la robotique ou encore le vivant permettent d’injecter de l’imprévu et de l’aléatoire dans un système régit par des règles. Les formes qui en résultent rendent compte de cette friction entre ce qui est de l’ordre du connu et ce qui relève de l’inconnu.",
+	"downloads": "/assets/cv.pdf",
+	"files": [
+		{
+			"title": "Cv",
+			"file": "/assets/cv.pdf"
+		},
+		{
+			"title": "Portfolio",
+			"file": "/assets/portfolio.pdf"
+		}
+	],
+	"news": [
+		{
+			"text": "Expostion 123ABC, le 12-03-45",
+			"image": {
+				"src": "/assets/affiche3.jpeg",
+				"alt": "ABc123"
+			}
+		},
+		{
+			"text": "Exposition Rouge à Vert, le 09-05-2025",
+			"image": {
+				"src": "/assets/affiche2.jpeg",
+				"alt": "Description de l'image"
+			}
+		},
+		{
+			"text": "Exposition Lorem Ipsum, le 03-06-2023",
+			"image": {
+				"src": "/assets/affiche1.jpeg"
+			}
+		}
+	]
+}

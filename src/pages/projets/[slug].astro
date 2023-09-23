@@ -1,0 +1,64 @@
+---
+import Glitch from '@components/Glitch.astro'
+import Header from '@components/Header.astro'
+import ImageGallery from '@components/ImageGallery.astro'
+import ScrollIndicator from '@components/ScrollIndicator.astro'
+import Layout from '@layouts/Layout.astro'
+import { formatPosts } from '@libs/formatPosts'
+import type { PostFrontmatter } from '@libs/formatPosts'
+import { getVideo } from '@libs/getVideo'
+import { resolveImage } from '@libs/resolveImages'
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+import { Image } from 'astro:assets'
+
+export const getStaticPaths = (async () => {
+	const rawPosts = await Astro.glob<PostFrontmatter>('../../content/posts/*.md')
+	const posts = formatPosts(rawPosts)
+	return posts.map((post) => ({
+		params: { slug: post.url },
+		props: { ...post }
+	}))
+}) satisfies GetStaticPaths
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+const { title, thumbnail, legend, Content, images, url, video: videoSrc } = Astro.props
+const video = await getVideo(videoSrc)
+const cover = await resolveImage(thumbnail.src)
+---
+
+<Layout {title}>
+	<Header url={`/projets#${url}`} />
+	<main class="mx-auto max-w-screen-xl px-m pb-8">
+		<div class="top-10 -z-10 mx-auto flex h-screen w-full flex-col py-2xl">
+			<h1
+				class="my-auto text-center font-display text-fl-5 leading-tight text-primary-1 lg:text-fl-6"
+			>
+				<Glitch>{title}</Glitch>
+			</h1>
+			<ul class="mt-auto max-w-sm self-end text-right sm:text-lg">
+				{legend.map((l) => <li>{l}</li>)}
+			</ul>
+			<ScrollIndicator target="#target" />
+		</div>
+		<div
+			id="target"
+			class="translate-y-0 transition-transform duration-500 data-[visible=false]:translate-y-1/4"
+			data-onscroll
+		>
+			{
+				video ? (
+					<Fragment set:html={video} />
+				) : (
+					<Image src={cover} alt={thumbnail.src} width={1200} class="mx-auto max-h-[90vmin]" />
+				)
+			}
+		</div>
+		<article
+			class="data-onscroll prose prose-lg my-16 translate-y-0 transition-transform duration-500 ease-out data-[visible=false]:translate-y-12"
+			data-onscroll
+		>
+			<Content />
+		</article>
+		{images && images?.length > 0 && <ImageGallery {images} />}
+	</main>
+</Layout>

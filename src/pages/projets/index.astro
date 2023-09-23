@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets'
+import Header from '@components/Header.astro'
+import Layout from '@layouts/Layout.astro'
+import { formatPosts } from '@libs/formatPosts'
+import type { PostFrontmatter } from '@libs/formatPosts'
+import { resolveImage } from '@libs/resolveImages.js'
+
+const rawPosts = await Astro.glob<PostFrontmatter>('../../content/posts/*.md')
+const posts = formatPosts(rawPosts)
+const thumbnails = await Promise.all(
+	posts.map(async ({ thumbnail }) => {
+		const image = await resolveImage(thumbnail.src)
+		return { ...image, alt: thumbnail.alt }
+	})
+)
+---
+
+<Layout title="Projets" smoothScroll={false}>
+	<Header url="/" />
+	<main class="mx-auto grid gap-x-5 gap-y-8 px-m pb-8 md:grid-cols-2 lg:block lg:px-0 lg:pb-0">
+		{
+			posts.map(({ title, legend, url }, i) => (
+				<article
+					class="group/wrapper mx-auto max-w-md border lg:max-w-none lg:border-none"
+					id={url}
+				>
+					<a
+						href={`/projets/${url}`}
+						class="group/link flex h-full flex-col content-between lg:flex lg:h-[50vh] lg:min-h-[18rem] lg:flex-row lg:group-odd/wrapper:text-right lg:group-even/wrapper:flex-row-reverse"
+					>
+						<div class="relative lg:grow">
+							<Image
+								src={thumbnails[i]}
+								alt={thumbnails[i].alt ?? ''}
+								class="h-auto w-full object-cover lg:h-full "
+								width={1000}
+								format="jpeg"
+							/>
+							<span
+								aria-hidden="true"
+								class="radial-gradient absolute inset-0 opacity-0 mix-blend-color duration-200 group-hover/link:opacity-100 group-focus-visible/link:opacity-100"
+							/>
+						</div>
+						<div class="flex grow flex-col justify-center px-5 py-5 duration-200 group-hover/link:text-primary-1 group-focus-visible/link:text-primary-1 lg:shrink-0 lg:grow-0 lg:basis-96">
+							<h2 class="font-display text-fl-2 font-bold">{title}</h2>
+							<ul class=" text-lg text-gray-800 group-hover/link:text-primary-1 group-focus-visible/link:text-primary-1">
+								{legend.map((itm) => (
+									<li class="line-clamp-1 md:line-clamp-2">{itm}</li>
+								))}
+							</ul>
+						</div>
+					</a>
+				</article>
+			))
+		}
+	</main>
+</Layout>

@@ -1,0 +1,94 @@
+local_backend: true
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+media_folder: 'public/assets' # Media files will be stored in the repo under static/images/uploads
+public_folder: '/assets' # The src attribute for uploaded media will begin with /images/uploads
+
+collections:
+  - label: 'Pages'
+    name: 'pages'
+    files:
+      - label: 'Page infos'
+        name: 'infos'
+        file: 'src/content/infos.md'
+        fields:
+          - { label: Titre de la page, name: title, widget: string }
+          - { label: Contenu, name: body, widget: markdown }
+      - label: "Page d'Accueil"
+        name: 'home'
+        file: 'src/content/home.json'
+        fields:
+          - { label: Titre de la page, name: title, widget: string }
+          - { label: 'Adresse email de contact', name: contact, widget: string }
+          - { label: Description, name: body, widget: text }
+          - label: 'Téléchargements'
+            name: 'files'
+            widget: 'list'
+            fields:
+              - { label: Titre, name: title, widget: string }
+              - { label: Fichier, name: file, widget: file }
+          - label: 'Actualités'
+            name: 'news'
+            widget: 'list'
+            add_to_top: true
+            # summary: '{{fields.title}}'
+            fields:
+              - { label: Texte, name: text, widget: string }
+              - label: 'Image'
+                name: image
+                widget: object
+                fields:
+                  - { label: Image, name: src, widget: image }
+                  - {
+                      label: Texte alternatif,
+                      name: alt,
+                      widget: string,
+                      required: false,
+                      hint: "description de l'image pour le référencement et l'accessibilité"
+                    }
+  - name: 'posts' # Used in routes, e.g., /admin/collections/blog
+    label: 'Posts' # Used in the UI
+    folder: 'src/content/posts' # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: '{{slug}}' # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Date', name: 'date', widget: 'datetime' }
+      - label: 'Image de couverture'
+        name: thumbnail
+        widget: object
+        fields:
+          - { label: Image, name: src, widget: image }
+          - {
+              label: Texte alternatif,
+              name: alt,
+              widget: string,
+              required: false,
+              hint: "description de l'image pour le référencement et l'accessibilité"
+            }
+      - { label: 'Lien vimeo', name: 'video', widget: 'string', required: false }
+      - label: 'Légende'
+        name: legend
+        label_singular: image
+        widget: list
+        min: 1
+        field: { label: Texte, name: text, widget: string }
+      - { label: 'Texte', name: 'body', widget: 'markdown' }
+      - label: 'Images'
+        name: images
+        widget: list
+        required: false
+        field:
+          label: 'Image'
+          name: image
+          widget: object
+          fields:
+            - { label: Image, name: src, widget: image }
+            - {
+                label: Texte alternatif,
+                name: alt,
+                widget: string,
+                required: false,
+                hint: "description de l'image pour le référencement et l'accessibilité"
+              }

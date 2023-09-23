@@ -1,0 +1,79 @@
+---
+import { getImage } from 'astro:assets'
+import { Image } from 'astro:assets'
+import { resolveImage } from '@libs/resolveImages'
+
+interface Props {
+	label: string
+	clone: boolean
+	image: {
+		src: string
+		alt: string
+	}
+}
+const { image: rawImage, label, clone } = Astro.props
+
+const image = await resolveImage(rawImage.src)
+const fullImage = await getImage({
+	src: image,
+	alt: rawImage.alt,
+	format: 'jpg',
+	width: 1200,
+	height: 1200,
+	fit: 'inside'
+})
+---
+
+<li aria-hidden={clone} class="group relative">
+	<span
+		aria-hidden="true"
+		class="absolute left-0 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary-1 bg-gradient-to-br from-primary-2 to-transparent"
+	></span>
+	<a
+		href={fullImage.src}
+		class="my-[-1.5rem] px-10 py-[1.5rem]"
+		tabindex="-1"
+		data-gallery
+		data-astro-reload
+	>
+		{label}
+	</a>
+	<Image
+		src={image}
+		width={128}
+		alt={rawImage.alt}
+		class="clip-path-2 group-hover:clip-path-0 pointer-events-none absolute bottom-full left-0 z-10 origin-bottom-left transition-[clip-path]"
+		data-following
+	/>
+</li>
+
+<script>
+	import Viewer from 'viewerjs'
+
+	document.addEventListener('astro:page-load', () => {
+		const $elements = document.querySelectorAll<HTMLImageElement>('img[data-following]')
+		$elements.forEach(($el) => {
+			const $container = $el.parentElement
+			$container?.addEventListener('mousemove', (e) => {
+				const tx = e.offsetX
+				const ty = e.offsetY
+				$el.style.setProperty('transform', `translate(${tx}px,${ty}px)`)
+			})
+		})
+
+		const $links = document.querySelectorAll<HTMLAnchorElement>('a[data-gallery]')
+		$links.forEach(($link) => {
+			const image = new Image()
+			image.src = $link.href
+			const viewer = new Viewer(image, {
+				toolbar: false,
+				navbar: false,
+				title: () => $link.textContent
+			})
+			$link.addEventListener('click', (e) => {
+				e.preventDefault()
+				viewer.show()
+			})
+		})
+	})
+</script>

@@ -1,0 +1,28 @@
+<slot />
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const $elements = document.querySelectorAll('[data-onscroll]')
+		const callback: IntersectionObserverCallback = (entries) => {
+			let index = 0
+			entries.forEach(({ target, isIntersecting }) => {
+				if (!isIntersecting && !target.getAttribute('data-visible'))
+					target.setAttribute('data-visible', 'false')
+				if (isIntersecting) {
+					if (target instanceof HTMLElement) target.style.setProperty('--index', index.toString())
+					target.setAttribute('data-visible', 'true')
+					oberser.unobserve(target)
+					index++
+				}
+			})
+		}
+		const options: IntersectionObserverInit = {
+			rootMargin: '30px 0% 0%'
+		}
+		const oberser = new IntersectionObserver(callback, options)
+
+		$elements.forEach(($el) => {
+			oberser.observe($el)
+		})
+	})
+</script>

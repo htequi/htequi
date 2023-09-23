@@ -1,0 +1,54 @@
+---
+interface Props {
+	url: string
+}
+const { url } = Astro.props
+---
+
+<header class="sticky top-0 z-10 items-center bg-gray-50 px-5 py-1" data-sticky-header>
+	<a
+		href={url}
+		class="group inline-flex items-center gap-x-2 text-fl-0 transition-colors hover:text-primary-2 focus-visible:text-primary-2"
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			width="1em"
+			height="1em"
+			aria-hidden="true"
+			class="transition-transform duration-300 ease-elastic group-hover:translate-x-[-.5rem] group-focus-visible:translate-x-[-.5rem]"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+			></path>
+		</svg>
+		<span
+			class="transition-transform delay-150 duration-300 ease-elastic group-hover:translate-x-[-.5rem] group-focus-visible:translate-x-[-.5rem]"
+		>
+			Retour</span
+		>
+	</a>
+</header>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const $header = document.querySelector<HTMLElement>('[data-sticky-header]')
+		let lastScroll = window.scrollY
+		let headerTop = 0
+		let headerHeight = $header?.getBoundingClientRect()?.height ?? 0
+		let requestId: number | null
+		document.addEventListener('scroll', () => {
+			if (requestId) return
+			requestId = requestAnimationFrame(() => {
+				requestId = null
+				const currentScroll = window.scrollY
+				const scrollOffset = currentScroll - lastScroll
+				lastScroll = currentScroll
+				headerTop = Math.max(-headerHeight, Math.min(0, headerTop - scrollOffset))
+				$header?.style.setProperty('transform', `translateY(${headerTop}px)`)
+			})
+		})
+	})
+</script>

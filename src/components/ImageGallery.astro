@@ -1,0 +1,76 @@
+---
+import { getImage } from 'astro:assets'
+import { Image } from 'astro:assets'
+import { resolveImage } from '@libs/resolveImages'
+import 'viewerjs/dist/viewer.css'
+interface Props {
+	images: {
+		src: string
+		alt?: string
+	}[]
+}
+const { images: rawImages } = Astro.props
+
+const images = await Promise.all(
+	rawImages.map(async (img) => {
+		const image = await resolveImage(img.src)
+		return {
+			src: image,
+			alt: img.alt ?? ''
+		}
+	})
+)
+
+const fullImages = await Promise.all(
+	rawImages.map(async (img) => {
+		const image = await resolveImage(img.src)
+
+		return getImage({
+			src: image,
+			alt: img.alt ?? '',
+			width: 1200,
+			format: 'jpg'
+		})
+	})
+)
+---
+
+<ul id="gallery" class="flex flex-wrap gap-1 overflow-hidden">
+	{
+		images.map((img, i) => (
+			<li
+				class="h-48 grow translate-y-0 transition-all delay-[calc(var(--index)_*_0.05s)] duration-500 data-[visible=false]:translate-y-8 data-[visible=false]:opacity-0 lg:h-72"
+				data-onscroll
+			>
+				<a href={img.src.src} target="_blank">
+					<Image
+						src={img.src}
+						alt={img.alt}
+						width={700}
+						class="max-h-full w-auto min-w-full cursor-pointer object-cover"
+						data-full={fullImages[i].src}
+					/>
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<script>
+	import Viewer from 'viewerjs'
+
+	document.addEventListener('astro:page-load', () => {
+		const $gallery = document.getElementById('gallery')
+		if ($gallery) {
+			new Viewer($gallery, {
+				toolbar: false,
+				title: false,
+				url: (image: HTMLImageElement) => image.getAttribute('data-full')
+			})
+			const $links = $gallery.querySelectorAll('a')
+			$links.forEach(($link) => {
+				$link.addEventListener('click', (e) => e.preventDefault())
+			})
+		}
+	})
+</script>
