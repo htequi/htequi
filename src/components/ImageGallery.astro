@@ -59,7 +59,7 @@ const fullImages = await Promise.all(
 <script>
 	import Viewer from 'viewerjs'
 
-	document.addEventListener('astro:page-load', () => {
+	const init = () => {
 		const $gallery = document.getElementById('gallery')
 		if ($gallery) {
 			new Viewer($gallery, {
@@ -72,5 +72,7 @@ const fullImages = await Promise.all(
 				$link.addEventListener('click', (e) => e.preventDefault())
 			})
 		}
-	})
+	}
+	document.addEventListener('astro:page-load', init)
+	init()
 </script>

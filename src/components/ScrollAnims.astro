@@ -1,7 +1,7 @@
 <slot />
 
 <script>
-	document.addEventListener('astro:page-load', () => {
+	const init = () => {
 		const $elements = document.querySelectorAll('[data-onscroll]')
 		const callback: IntersectionObserverCallback = (entries) => {
 			let index = 0
@@ -24,5 +24,8 @@
 		$elements.forEach(($el) => {
 			oberser.observe($el)
 		})
-	})
+	}
+
+	document.addEventListener('astro:page-load', init)
+	init()
 </script>

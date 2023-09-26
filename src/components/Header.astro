@@ -33,7 +33,7 @@ const { url } = Astro.props
 </header>
 
 <script>
-	document.addEventListener('astro:page-load', () => {
+	const init = () => {
 		const $header = document.querySelector<HTMLElement>('[data-sticky-header]')
 		let lastScroll = window.scrollY
 		let headerTop = 0
@@ -51,5 +51,8 @@ const { url } = Astro.props
 				$header?.style.setProperty('transform', `translateY(${headerTop}px)`)
 			})
 		})
-	})
+	}
+
+	document.addEventListener('astro:page-load', init)
+	init()
 </script>

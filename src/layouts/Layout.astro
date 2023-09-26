@@ -16,7 +16,7 @@ const { title, smoothScroll = true } = Astro.props
 		<meta name="description" content="Porfolio de Hadrien Tequi" />
 		<title>Hadrien Tequi | {title}</title>
 		<slot name="head" />
-		<ViewTransitions />
+		<ViewTransitions fallback="none" />
 	</head>
 	<body class="bg-gray-50">
 		<ScrollAnims>

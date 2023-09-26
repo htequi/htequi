@@ -51,18 +51,20 @@ const { label, items } = Astro.props
 </div>
 
 <script>
-	document.addEventListener('astro:page-load', () => {
+	const init = () => {
 		const $dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]')
 		$dropdowns.forEach(($dropdown) => {
 			const $button = $dropdown.querySelector('button')
 			const $list = $dropdown.querySelector('ul')
 			const $items = $dropdown.querySelectorAll('a')
 			let timerId: ReturnType<typeof setTimeout> | null = null
+			let isOpen = false
 			const open = () => {
 				$button?.setAttribute('aria-expanded', 'true')
 				$list?.setAttribute('aria-hidden', 'false')
 				$items.forEach(($el) => $el.removeAttribute('tabindex'))
 				timerId = null
+				isOpen = true
 			}
 			const close = () => {
 				if (timerId !== null) return
@@ -71,16 +73,27 @@ const { label, items } = Astro.props
 					$list?.setAttribute('aria-hidden', 'true')
 					$items.forEach(($el) => $el.setAttribute('tabindex', '-1'))
 					timerId = null
+					isOpen = false
 				}, 300)
 			}
 			$button?.addEventListener('click', open)
 			$dropdown?.addEventListener('mouseenter', open)
 			$button?.addEventListener('focusin', open)
 			$dropdown?.addEventListener('mouseleave', close)
-			$dropdown.addEventListener('focusout', (e) => {
-				const $target = e.relatedTarget as HTMLElement
-				if (!$dropdown.contains($target)) close()
+			// $dropdown.addEventListener('focusout', (e) => {
+			// 	const $target = e.relatedTarget as HTMLElement
+			// 	if (!$dropdown.contains($target)) close()
+			// })
+			document.addEventListener('click', (e) => {
+				const target = e.target
+				if (target && target instanceof Node) {
+					if ($dropdown !== target && !$dropdown.contains(target)) close()
+				}
 			})
 		})
-	})
+	}
+
+	document.addEventListener('astro:page-load', init)
+
+	init()
 </script>

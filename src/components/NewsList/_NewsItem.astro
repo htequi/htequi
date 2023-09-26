@@ -50,7 +50,7 @@ const fullImage = await getImage({
 <script>
 	import Viewer from 'viewerjs'
 
-	document.addEventListener('astro:page-load', () => {
+	const init = () => {
 		const $elements = document.querySelectorAll<HTMLImageElement>('img[data-following]')
 		$elements.forEach(($el) => {
 			const $container = $el.parentElement
@@ -75,5 +75,8 @@ const fullImage = await getImage({
 				viewer.show()
 			})
 		})
-	})
+	}
+
+	document.addEventListener('astro:page-load', init)
+	init()
 </script>

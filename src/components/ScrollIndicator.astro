@@ -25,7 +25,7 @@ const { target } = Astro.props
 </a>
 
 <script>
-	document.addEventListener('astro:page-load', () => {
+	const init = () => {
 		const $links = document.querySelectorAll('a[data-scroll-indicator]')
 		$links.forEach(($link) => {
 			document.addEventListener(
@@ -42,5 +42,8 @@ const { target } = Astro.props
 				{ once: true }
 			)
 		})
-	})
+	}
+
+	document.addEventListener('astro:page-load', init)
+	init()
 </script>
