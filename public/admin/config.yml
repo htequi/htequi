@@ -32,7 +32,6 @@ collections:
             name: 'news'
             widget: 'list'
             add_to_top: true
-            # summary: '{{fields.title}}'
             fields:
               - { label: Texte, name: text, widget: string }
               - label: 'Image'
@@ -70,7 +69,7 @@ collections:
       - { label: 'Lien vimeo', name: 'video', widget: 'string', required: false }
       - label: 'Légende'
         name: legend
-        label_singular: image
+        label_singular: ligne
         widget: list
         min: 1
         field: { label: Texte, name: text, widget: string }
