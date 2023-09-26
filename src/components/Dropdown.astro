@@ -80,10 +80,6 @@ const { label, items } = Astro.props
 			$dropdown?.addEventListener('mouseenter', open)
 			$button?.addEventListener('focusin', open)
 			$dropdown?.addEventListener('mouseleave', close)
-			// $dropdown.addEventListener('focusout', (e) => {
-			// 	const $target = e.relatedTarget as HTMLElement
-			// 	if (!$dropdown.contains($target)) close()
-			// })
 			document.addEventListener('click', (e) => {
 				const target = e.target
 				if (target && target instanceof Node) {
