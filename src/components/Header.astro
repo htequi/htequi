@@ -45,8 +45,9 @@ const { url } = Astro.props
 				requestId = null
 				const currentScroll = window.scrollY
 				const scrollOffset = currentScroll - lastScroll
+				const isOnTop = window.scrollY === 0
 				lastScroll = currentScroll
-				headerTop = Math.max(-headerHeight, Math.min(0, headerTop - scrollOffset))
+				headerTop = isOnTop ? 0 : Math.max(-headerHeight, Math.min(0, headerTop - scrollOffset))
 				$header?.style.setProperty('transform', `translateY(${headerTop}px)`)
 			})
 		})
