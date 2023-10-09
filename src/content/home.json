@@ -15,16 +15,16 @@
   ],
   "news": [
     {
-      "text": "Le Serpent Bleu, Atelier Bouillon, Lille",
+      "text": "2023 : Le Serpent Bleu, Atelier Bouillon, Lille",
       "image": {
         "src": "/assets/affiche_final-01.jpg",
         "alt": "Description de l'image"
       }
     },
     {
-      "text": "Expostion 123ABC, le 12-03-45",
+      "text": "2022 : #Portfolio 4, rencontres d'un nouveau type, La Gaîté Lyrique, Paris",
       "image": {
-        "src": "/assets/affiche3.jpeg",
+        "src": "/assets/visuel-site-3_cover.png",
         "alt": "ABc123"
       }
     },
