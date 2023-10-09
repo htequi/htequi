@@ -15,6 +15,12 @@
   ],
   "news": [
     {
+      "text": "2022 : En Creux, Atelier Bouillon, Lille",
+      "image": {
+        "src": "/assets/natachav2bleu.jpg"
+      }
+    },
+    {
       "text": "2023 : Le Serpent Bleu, Atelier Bouillon, Lille",
       "image": {
         "src": "/assets/affiche_final-01.jpg",
