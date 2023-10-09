@@ -5,6 +5,7 @@ thumbnail:
   src: /assets/cover3.jpeg
   alt: quelqu'un allongé
 legend:
+  - Avec Suyai Otano
   - "2022"
   - Video HD, couleur, son
   - 9’59’’
