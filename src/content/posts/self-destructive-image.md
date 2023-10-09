@@ -5,7 +5,7 @@ thumbnail:
   src: /assets/cover1.jpeg
   alt: Only one person can unlock that box...
 legend:
-  - '2004'
+  - "2023"
   - Techniques Mixtes
   - 50 x 70 x 4cm
 images:
