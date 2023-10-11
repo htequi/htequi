@@ -65,7 +65,9 @@ const fullImages = await Promise.all(
 			new Viewer($gallery, {
 				toolbar: false,
 				title: false,
-				url: (image: HTMLImageElement) => image.getAttribute('data-full')
+				url(image: HTMLImageElement) {
+					return image.getAttribute('data-full') ?? ''
+				}
 			})
 			const $links = $gallery.querySelectorAll('a')
 			$links.forEach(($link) => {
@@ -73,6 +75,6 @@ const fullImages = await Promise.all(
 			})
 		}
 	}
-	document.addEventListener('astro:page-load', init)
-	// init()
+	// document.addEventListener('astro:page-load', init)
+	init()
 </script>
