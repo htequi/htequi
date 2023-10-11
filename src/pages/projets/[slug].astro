@@ -35,9 +35,15 @@ const cover = await resolveImage(thumbnail.src)
 			>
 				<Glitch>{title}</Glitch>
 			</h1>
-			<ul class="mt-auto max-w-sm self-end text-right sm:text-lg">
-				{legend.map((l) => <li>{l}</li>)}
-			</ul>
+			{
+				legend?.length && (
+					<ul class="mt-auto max-w-sm self-end text-right sm:text-lg">
+						{legend.map((l) => (
+							<li>{l}</li>
+						))}
+					</ul>
+				)
+			}
 			<ScrollIndicator target="#target" />
 		</div>
 		<div

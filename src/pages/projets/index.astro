@@ -45,9 +45,8 @@ const thumbnails = await Promise.all(
 						<div class="flex grow flex-col justify-center px-5 py-5 duration-200 group-hover/link:text-primary-1 group-focus-visible/link:text-primary-1 lg:shrink-0 lg:grow-0 lg:basis-96">
 							<h2 class="font-display text-fl-2 font-bold">{title}</h2>
 							<ul class=" text-lg text-gray-800 group-hover/link:text-primary-1 group-focus-visible/link:text-primary-1">
-								{legend.map((itm) => (
-									<li class="line-clamp-1 md:line-clamp-2">{itm}</li>
-								))}
+								{legend?.length &&
+									legend.map((itm) => <li class="line-clamp-1 md:line-clamp-2">{itm}</li>)}
 							</ul>
 						</div>
 					</a>

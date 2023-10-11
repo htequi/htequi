@@ -72,11 +72,12 @@ const fullImage = await getImage({
 			})
 			$link.addEventListener('click', (e) => {
 				e.preventDefault()
+				e.stopPropagation()
 				viewer.show()
 			})
 		})
 	}
 
 	document.addEventListener('astro:page-load', init)
-	init()
+	// init()
 </script>

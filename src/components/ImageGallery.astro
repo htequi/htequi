@@ -42,7 +42,7 @@ const fullImages = await Promise.all(
 				class="h-48 grow translate-y-0 transition-all delay-[calc(var(--index)_*_0.05s)] duration-500 data-[visible=false]:translate-y-8 data-[visible=false]:opacity-0 lg:h-72"
 				data-onscroll
 			>
-				<a href={img.src.src} target="_blank">
+				<a href={img.src.src} target="_blank" data-astro-reload>
 					<Image
 						src={img.src}
 						alt={img.alt}
@@ -74,5 +74,5 @@ const fullImages = await Promise.all(
 		}
 	}
 	document.addEventListener('astro:page-load', init)
-	init()
+	// init()
 </script>
