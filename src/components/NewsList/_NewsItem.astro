@@ -17,10 +17,8 @@ const image = await resolveImage(rawImage.src)
 const fullImage = await getImage({
 	src: image,
 	alt: rawImage.alt,
-	format: 'jpg',
-	width: 1200,
-	height: 1200,
-	fit: 'inside'
+	format: 'webp',
+	width: 1200
 })
 ---
 
@@ -33,6 +31,8 @@ const fullImage = await getImage({
 		href={fullImage.src}
 		class="my-[-1.5rem] px-10 py-[1.5rem]"
 		tabindex="-1"
+		data-pswp-width={fullImage.attributes.width}
+		data-pswp-height={fullImage.attributes.height}
 		data-gallery
 		data-astro-reload
 	>
@@ -48,8 +48,6 @@ const fullImage = await getImage({
 </li>
 
 <script>
-	import Viewer from 'viewerjs'
-
 	const init = () => {
 		const $elements = document.querySelectorAll<HTMLImageElement>('img[data-following]')
 		$elements.forEach(($el) => {
@@ -58,21 +56,6 @@ const fullImage = await getImage({
 				const tx = e.offsetX
 				const ty = e.offsetY
 				$el.style.setProperty('transform', `translate(${tx}px,${ty}px)`)
-			})
-		})
-
-		const $links = document.querySelectorAll<HTMLAnchorElement>('a[data-gallery]')
-		$links.forEach(($link) => {
-			const image = new Image()
-			image.src = $link.href
-			const viewer = new Viewer(image, {
-				toolbar: false,
-				navbar: false,
-				title: () => $link.textContent
-			})
-			$link.addEventListener('click', (e) => {
-				e.preventDefault()
-				viewer.show()
 			})
 		})
 	}

@@ -2,7 +2,6 @@
 import { getImage } from 'astro:assets'
 import { Image } from 'astro:assets'
 import { resolveImage } from '@libs/resolveImages'
-import 'viewerjs/dist/viewer.css'
 interface Props {
 	images: {
 		src: string
@@ -29,7 +28,7 @@ const fullImages = await Promise.all(
 			src: image,
 			alt: img.alt ?? '',
 			width: 1200,
-			format: 'jpg'
+			format: 'webp'
 		})
 	})
 )
@@ -42,7 +41,13 @@ const fullImages = await Promise.all(
 				class="h-48 grow translate-y-0 transition-all delay-[calc(var(--index)_*_0.05s)] duration-500 data-[visible=false]:translate-y-8 data-[visible=false]:opacity-0 lg:h-72"
 				data-onscroll
 			>
-				<a href={img.src.src} target="_blank" data-astro-reload>
+				<a
+					href={fullImages[i].src}
+					target="_blank"
+					data-astro-reload
+					data-pswp-width={fullImages[i].attributes.width}
+					data-pswp-height={fullImages[i].attributes.height}
+				>
 					<Image
 						src={img.src}
 						alt={img.alt}
@@ -57,24 +62,14 @@ const fullImages = await Promise.all(
 </ul>
 
 <script>
-	import Viewer from 'viewerjs'
+	import PhotoSwipeLightbox from 'photoswipe/lightbox'
+	import 'photoswipe/photoswipe.css'
+	import 'photoswipe/style.css'
 
-	const init = () => {
-		const $gallery = document.getElementById('gallery')
-		if ($gallery) {
-			new Viewer($gallery, {
-				toolbar: false,
-				title: false,
-				url(image: HTMLImageElement) {
-					return image.getAttribute('data-full') ?? ''
-				}
-			})
-			const $links = $gallery.querySelectorAll('a')
-			$links.forEach(($link) => {
-				$link.addEventListener('click', (e) => e.preventDefault())
-			})
-		}
-	}
-	// document.addEventListener('astro:page-load', init)
-	init()
+	const lightbox = new PhotoSwipeLightbox({
+		gallery: '#gallery',
+		children: 'a',
+		pswpModule: () => import('photoswipe')
+	})
+	lightbox.init()
 </script>

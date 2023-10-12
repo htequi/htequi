@@ -1,5 +1,4 @@
 ---
-import 'viewerjs/dist/viewer.css'
 import Item from './_NewsItem.astro'
 interface Props {
 	items: {
@@ -19,7 +18,20 @@ const items = [..._items, ..._items]
 	<ul
 		class="hover:pause flex w-fit animate-[marquee_linear_infinite] whitespace-nowrap"
 		style=`animation-duration: ${size * 9}s;`
+		id="gallery"
 	>
 		{items.map(({ label, image }, i) => <Item {label} clone={i >= size} {image} />)}
 	</ul>
 </div>
+
+<script>
+	import PhotoSwipeLightbox from 'photoswipe/lightbox'
+	import 'photoswipe/photoswipe.css'
+	import 'photoswipe/style.css'
+
+	const lightbox = new PhotoSwipeLightbox({
+		gallery: '#gallery a',
+		pswpModule: () => import('photoswipe')
+	})
+	lightbox.init()
+</script>

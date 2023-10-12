@@ -9,5 +9,5 @@ export const resolveImage = async (src: string) => {
 		throw new Error(`Image "${src}" not found! Is there a typo?`)
 	}
 	const { default: image } = await allImages[url]()
-	return image
+	return image as ImageMetadata
 }
