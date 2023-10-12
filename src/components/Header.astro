@@ -43,7 +43,8 @@ const { url } = Astro.props
 			if (requestId) return
 			requestId = requestAnimationFrame(() => {
 				requestId = null
-				if (window.scrollY < 0) return
+				if (window.scrollY < 0 || window.scrollY + window.innerHeight > document.body.clientHeight)
+					return
 				const currentScroll = window.scrollY
 				const scrollOffset = currentScroll - lastScroll
 				lastScroll = currentScroll
