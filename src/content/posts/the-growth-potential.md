@@ -1,6 +1,6 @@
 ---
 title: The Growth Potential
-date: 2023-10-07T15:11:00.152Z
+date: 2022-08-31T15:11:00.152Z
 thumbnail:
   src: /assets/img_9340.jpg
 legend:
