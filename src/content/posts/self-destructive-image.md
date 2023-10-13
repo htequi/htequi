@@ -1,6 +1,6 @@
 ---
 title: Self Destructive Image
-date: 2004-01-07T11:04:16.104Z
+date: 2021-12-31T11:04:16.104Z
 thumbnail:
   src: /assets/cover1.jpeg
   alt: Only one person can unlock that box...
