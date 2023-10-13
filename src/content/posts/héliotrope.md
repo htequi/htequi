@@ -1,6 +1,6 @@
 ---
 title: Héliotrope
-date: 2001-06-06T10:41:11.472Z
+date: 2018-06-01T10:41:11.472Z
 thumbnail:
   src: /assets/cover4.jpeg
   alt: un robot
