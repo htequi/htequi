@@ -9,5 +9,6 @@ legend:
   - "2016"
   - Vidéo HD, couleur, son
   - Anglais / japonais
+  - 11'07''
 ---
 La vidéo *Everlasting Gelatin* évoque la découverte d’une méduse potentiellement immortelle. Il s’agit de dresser un constat des différentes réactions face à cette découverte en convoquant différents registres, de la science-fiction au canular.
