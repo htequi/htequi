@@ -1,11 +1,11 @@
 ---
 title: Mauvais Oeil
-date: 2023-05-09T10:24:37.057Z
+date: 2023-03-01T11:24:37.057Z
 thumbnail:
   src: /assets/cover2.jpeg
   alt: serpent
 legend:
-  - '2023'
+  - "2023"
   - Installation
   - Serpent articulé, souris d’ordinateur, marbre, huile, système électronique,
     vidéo HD en boucle (1mn)
