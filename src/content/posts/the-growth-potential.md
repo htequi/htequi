@@ -6,6 +6,15 @@ thumbnail:
 legend:
   - "2022"
   - Installation
+images:
+  - image:
+      src: /assets/blabla.jpeg
+  - image:
+      src: /assets/img_9352.jpeg
+  - image:
+      src: /assets/moniteur.jpeg
+  - image:
+      src: /assets/img_3069.jpeg
 ---
 Avec le soutien de la DRAC Hauts-de-France\
 Avec le soutien du Fresnoy - Studio National\
