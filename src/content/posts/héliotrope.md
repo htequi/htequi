@@ -4,7 +4,7 @@ date: 2018-06-01T10:41:11.472Z
 thumbnail:
   src: /assets/cover4.jpeg
   alt: un robot
-video: https://vimeo.com/382587720
+video: https://vimeo.com/album/5171489/video/273570671
 legend:
   - "2018"
   - Film 4K
