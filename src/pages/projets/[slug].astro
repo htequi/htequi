@@ -22,7 +22,7 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { title, thumbnail, legend, Content, images, url, video: videoSrc } = Astro.props
-const video = await getVideo(videoSrc)
+// const video = await getVideo(videoSrc)
 const cover = await resolveImage(thumbnail.src)
 ---
 
@@ -52,15 +52,15 @@ const cover = await resolveImage(thumbnail.src)
 			data-onscroll
 		>
 			{
-				video ? (
-					<Fragment set:html={video} />
+				videoSrc ? (
+					<Fragment set:html={videoSrc} />
 				) : (
 					<Image src={cover} alt={thumbnail.src} width={1200} class="mx-auto max-h-[90vmin]" />
 				)
 			}
 		</div>
 		<article
-			class="data-onscroll prose prose-lg my-16 translate-y-0 transition-transform duration-500 ease-out data-[visible=false]:translate-y-12"
+			class="data-onscroll colu prose prose-lg my-16 max-w-prose translate-y-0 transition-transform duration-500 ease-out [orphans:3] data-[visible=false]:translate-y-12 lg:max-w-full lg:columns-2"
 			data-onscroll
 		>
 			<Content />

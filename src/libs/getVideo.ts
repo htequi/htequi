@@ -6,7 +6,7 @@ export const getVideo = async (src?: string) => {
 		return data.html as string
 	} catch (error) {
 		console.error(
-			`Impossible d'obtenir l'intégration pour la vidéo : "${src}". La vidéo existe-t-elle toujours ? Est-elle disponible ? Peut-être une erreure dans l'url`
+			`Impossible d'obtenir l'intégration pour la vidéo : "${src}". La vidéo existe-t-elle toujours ? Est-elle disponible ? Peut-être une erreure dans l'url. ${error}`
 		)
 	}
 }
