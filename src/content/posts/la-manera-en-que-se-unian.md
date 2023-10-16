@@ -4,6 +4,7 @@ date: 2022-04-30T10:32:25.504Z
 thumbnail:
   src: /assets/cover3.jpeg
   alt: quelqu'un allongé
+video: https://vimeo.com/manage/videos/704353412
 legend:
   - Avec Suyai Otano
   - "2022"
