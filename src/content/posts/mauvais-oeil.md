@@ -17,7 +17,12 @@ images:
       src: /assets/mauvaisoeil-0.jpeg
       alt: écran
 ---
-
 L’huile de massage déborde de l’écran.
-La souris piégée dans la mâchoire du serpent se débat. La bétonnière malaxe du mortier.
+
+
+Le serpent croque la souris à la pomme. 
+
+La bétonnière malaxe du mortier.
+
+
 C’est circulaire et incessant.
